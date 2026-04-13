@@ -1,12 +1,16 @@
 -- Ensure you've run Item18StructureAndData.sql in the Sample Databases folder in order to run this example.
 
+-- 【概要】Assignments テーブルから vDrawings（図面一覧）と vPredecessors（前任者一覧）の
+--         2つのビューを作成する。vPredecessors は Predecessor_1〜5 を UNION で縦持ちに変換。
+
 USE Item18Example;
 
-
+-- 図面IDと図面番号のビュー
 CREATE VIEW vDrawings AS
 SELECT a.ID AS DrawingID, a.DrawingNumber
 FROM Assignments AS a;
 
+-- Predecessor_1〜5 を UNION で縦方向に展開し、前任者IDを連番付きで取得するビュー
 CREATE VIEW vPredecessors AS
 SELECT 1 AS PredecessorID, a.ID AS DrawingID, a.Predecessor_1 AS Predecessor
 FROM Assignments AS a

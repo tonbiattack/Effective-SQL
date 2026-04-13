@@ -1,10 +1,15 @@
 -- Ensure you've run SalesOrdersStructure.sql
 -- and SalesOrdersData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】4.038の問題をOR IS NULL条件で修正した例。
+--         注文のない顧客（Orders.OrderNumber IS NULL）もOR条件で明示的に保持する。
+--         ただし推奨パターンはON句でのフィルタ（4.040）。
 
 USE SalesOrdersSample;
 
-SELECT Customers.CustomerID, Customers.CustFirstName, 
+-- 改善例: IS NULLをOR条件で追加して注文なし顧客のNULL行を保持する
+SELECT Customers.CustomerID, Customers.CustFirstName,
   Customers.CustLastName, Orders.OrderNumber, Orders.OrderDate,
   Orders.OrderTotal
 FROM Customers LEFT JOIN Orders

@@ -1,10 +1,15 @@
 -- Ensure you've run Ch03.20.01Structure.sql
 -- and Ch03.20.01Data.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
 -- NOTE: MySQL doesn't allow "Dec" as a column name; Used "Decm" instead.
+
+-- 【概要】tblPostSales の横持ちデータ（Jan〜Decm カラム）を
+--         UNION ALL で縦持ちに変換し、月別・商品別の売上一覧を生成するクエリ。
+--         1月〜12月の12ブロックを UNION ALL で連結する。
 
 USE Item19Example;
 
+-- 各月の売上を UNION ALL で縦方向に展開（1月分）
 SELECT CAST('2015-01-01' AS Date) AS SalesMonth, Product, Jan AS SalesAmt
   FROM tblPostSales
 UNION ALL

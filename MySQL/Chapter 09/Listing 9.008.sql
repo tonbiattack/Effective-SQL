@@ -1,10 +1,13 @@
 -- Ensure you've run SalesOrdersStructure.sql
 -- and SalesOrdersData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】クーポン枚数分だけ行を複製して宛名ラベル印刷用データを生成する。ztblSeqNumbersとCROSS JOINしてクーポン枚数分の行を展開し、顧客情報と組み合わせる。
 
 USE SalesOrdersSample;
 
 -- MySQL does not support CTEs so using views
+-- 2015年12月の顧客別購入合計を格納するビュー
 CREATE VIEW CustDecPurch AS
 SELECT Orders.CustomerID, 
    SUM((QuotedPrice)*(QuantityOrdered)) AS Purchase 

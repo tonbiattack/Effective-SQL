@@ -1,9 +1,12 @@
 -- Ensure you've run EntertainmentAgencyStructure.sql
 -- and EntertainmentAgencyData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】顧客の音楽嗜好とエンターテイナーの音楽スタイルをビューで定義し、全スタイルが一致するエンターテイナーを検索する。MySQLのバグ回避策としてHAVING句のCOUNT参照方法を修正する例。
 
 USE EntertainmentAgencySample;
 
+-- 顧客の音楽スタイル嗜好を格納するビュー（顧客ID・氏名・スタイル名）
 CREATE VIEW CustStyles AS
 SELECT C.CustomerID, C.CustFirstName, 
       C.CustLastName, MS.StyleName
@@ -12,6 +15,7 @@ FROM Customers AS C INNER JOIN Musical_Preferences AS MP
 INNER JOIN Musical_Styles AS MS
   ON MP.StyleID = MS.StyleID;
 
+-- エンターテイナーの音楽スタイルを格納するビュー（エンターテイナーID・ステージ名・スタイル名）
 CREATE VIEW EntStyles AS
 SELECT E.EntertainerID, E.EntStageName, MS.StyleName
 FROM Entertainers AS E INNER JOIN Entertainer_Styles AS ES
