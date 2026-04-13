@@ -1,11 +1,16 @@
 -- Create a new database, to make it easier to cleanup afterwards.
 
+-- 【概要】ログデータ操作（日時フィルタリング）の例示用にItem27Exampleデータベースと
+--         ProgramLogsテーブルを作成し、サンプルデータを挿入する。
+--         4.022〜4.027のクエリのベーステーブルとなる。
+
 CREATE DATABASE Item27Example;
 
 USE Item27Example;
 
 -- Listing 4.21 Table creation DDL for a Log table
 
+-- ログ管理用テーブルの定義（LogID, ユーザー, 日時, ロガー, レベル, メッセージ）
 CREATE TABLE ProgramLogs (
   LogID int PRIMARY KEY,
   LogUserID varchar(20) NOT NULL,
