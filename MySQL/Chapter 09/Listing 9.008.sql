@@ -17,19 +17,22 @@ SELECT Orders.CustomerID,
      AND '2015-12-31' 
  GROUP BY Orders.CustomerID;
  
+-- 購入額に対応するクーポン枚数を決定するビュー
 CREATE VIEW Coupons AS
 SELECT CustDecPurch.CustomerID, ztblPurchaseCoupons.NumCoupons
  FROM CustDecPurch CROSS JOIN ztblPurchaseCoupons
- WHERE CustDecPurch.Purchase BETWEEN 
-   ztblPurchaseCoupons.LowSpend AND 
+ WHERE CustDecPurch.Purchase BETWEEN
+   ztblPurchaseCoupons.LowSpend AND
    ztblPurchaseCoupons.HighSpend;
 
-SELECT C.CustFirstName, C.CustLastName, C.CustStreetAddress, 
+-- ztblSeqNumbersとCROSS JOINし、クーポン枚数分だけ顧客行を複製して宛名ラベル用データを生成
+SELECT C.CustFirstName, C.CustLastName, C.CustStreetAddress,
      C.CustCity, C.CustState, C.CustZipCode, CP.NumCoupons
 FROM Coupons AS CP INNER JOIN Customers AS C
   ON CP.CustomerID = C.CustomerID
 CROSS JOIN ztblSeqNumbers AS z
 WHERE z.Sequence <= CP.NumCoupons;
 
+-- 使用したビューを削除してクリーンアップ
 DROP VIEW Coupons;
 DROP VIEW CustDecPurch;
