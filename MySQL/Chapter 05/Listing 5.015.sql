@@ -1,6 +1,10 @@
 -- Ensure you've run SalesOrdersStructure.sql
 -- and SalesOrdersData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】カテゴリ内平均売上を超える商品を取得するクエリ（MySQL版）。
+--         MySQLはCTEをサポートしないため、一時ビューを複数作成して代替する。
+--         HAVINGのサブクエリでカテゴリ別平均と比較し、平均超えの商品を抽出する。
 
 -- NOTE: MySQL cannot run the original query, saying it can't find P.CategoryID referenced in
 --       the WHERE clause.  MySQL also doesn't support Common Table Expressions (solution used
@@ -8,6 +12,7 @@
 
 USE SalesOrdersSample;
 
+-- 商品番号ごとの売上合計ビュー（カテゴリID付き）
 CREATE VIEW TotalPerProduct AS
 SELECT P2.CategoryID, 
        SUM(OD2.QuotedPrice * OD2.QuantityOrdered) 

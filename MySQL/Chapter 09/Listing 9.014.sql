@@ -1,11 +1,14 @@
 -- Ensure you've run Item55StructureAndData.sql
 -- in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】日付ディメンションテーブル（DimDate）の定義を示す。年・四半期・月・週・曜日など多様な日付属性を持つ包括的な日付管理テーブル（Item55StructureAndDataで既に作成済み）。
 
 USE Item55Example;
 
 -- NOTE: This is already created if you run the Item55StructureAndData in the sample database folder.
 
+-- 日付に関する多様な属性（曜日名・ISO週番号・各週の開始終了日等）を持つ日付ディメンションテーブル
 CREATE TABLE DimDate (
   DateKey int NOT NULL,
   DateValue date NOT NULL PRIMARY KEY,

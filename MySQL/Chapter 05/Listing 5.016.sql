@@ -1,6 +1,10 @@
 -- Ensure you've run SalesOrdersStructure.sql
 -- and SalesOrdersData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】5.015のMySQL 5.7バグ回避版。カテゴリ別平均との比較をJOINに書き換えて
+--         正しい結果を返すように修正した推奨パターン。
+--         CTEの代わりに複数の一時ビューを使う構造は5.015と同様。
 
 USE SalesOrdersSample;
 
@@ -8,6 +12,7 @@ USE SalesOrdersSample;
 -- MySQL also does not allow reference to queries more than one level apart,
 -- so using multiple views to avoid referencing subqueries two level deep
 
+-- 商品番号ごとの売上合計ビュー
 CREATE VIEW TotalPerProductNumber AS
 SELECT 
   P2.CategoryID, P2.ProductNumber,

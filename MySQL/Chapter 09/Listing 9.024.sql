@@ -1,12 +1,15 @@
 -- Ensure you've run EntertainmentAgencyStructure.sql
 -- and EntertainmentAgencyData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】CASE式を使用して月別契約合計をピボット形式（列展開）で表示する。エージェント別・年別に1月〜12月の契約額を横並びの列として集計するクロス集計例。
 
 USE EntertainmentAgencySample;
 
-SELECT A.AgtFirstName, A.AgtLastName, 
+-- CASE式で月番号を列に変換してエージェント別月別売上をクロス集計
+SELECT A.AgtFirstName, A.AgtLastName,
     YEAR(E.StartDate) AS ContractYear,
-    SUM(CASE WHEN MONTH(E.StartDate) = 1 
+    SUM(CASE WHEN MONTH(E.StartDate) = 1
              THEN E.ContractPrice END) AS January,
     SUM(CASE WHEN MONTH(E.StartDate) = 2 
              THEN E.ContractPrice END) AS February,

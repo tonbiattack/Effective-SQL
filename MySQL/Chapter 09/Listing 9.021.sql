@@ -1,13 +1,17 @@
 -- Ensure you've run Listing 9.020.sql to create the Item56Example database
 
+-- 【概要】簡易版日付テーブル（DimDate）を作成して2017年1月〜3月のデータを投入する。カレンダー表示に使用するDateKeyとFullDateのみを持つシンプルな日付ディメンションテーブル。
+
 USE Item56Example;
 
 -- Listing 9.21 Table creation DDL for a Date table
+-- DateKey（YYYYMMDD形式の整数）とFullDate（日付型）を持つシンプルな日付テーブル
 CREATE TABLE DimDate (
   DateKey int PRIMARY KEY ,
-  FullDate date NOT NULL 
+  FullDate date NOT NULL
 );
 
+-- FullDateによる高速検索用インデックスを作成
 CREATE INDEX iFullDate
   ON DimDate (FullDate);
 
