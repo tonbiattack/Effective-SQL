@@ -1,6 +1,10 @@
 -- NOTE that these are code snippets that are not executable.
 
+-- 【概要】CASE式の各種パターンを示すコードスニペット集。
+--         単純CASE（値の比較）、検索CASE（条件式）、サブクエリを使ったCASE等を示す。
+
 -- (Replace a code with a word – two examples.)
+-- 単純CASE: GenderコードをMale/Femaleに変換
 CASE Students.Gender WHEN 'M' THEN 'Male' ELSE 'Female' END
 
 CASE Students.Gender

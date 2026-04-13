@@ -1,11 +1,16 @@
 -- Ensure you've run SalesOrdersStructure.sql
 -- and SalesOrdersData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】INとNOT INを組み合わせて「Skateboardを購入したが、
+--         Helmet/Gloves/Knee Padsは購入していない」顧客を取得する。
+--         包含条件（IN）と排除条件（NOT IN）を組み合わせたフィルタリング。
 
 USE SalesOrdersSample;
 
+-- Skateboardを購入した顧客をINで取得し、他商品購入者をNOT INで除外
 SELECT C.CustomerID, C.CustFirstName, C.CustLastName
-FROM Customers AS C 
+FROM Customers AS C
 WHERE C.CustomerID IN
   (SELECT Orders.CustomerID
   FROM Orders INNER JOIN Order_Details

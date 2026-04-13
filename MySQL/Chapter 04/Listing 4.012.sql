@@ -1,9 +1,14 @@
 -- Ensure you've run SalesOrdersStructure.sql
 -- and SalesOrdersData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】INNER JOINを4回重ねることで、Skateboard/Helmet/Knee Pads/Gloves
+--         全てを購入した顧客（全集合の積集合）を取得する。
+--         各商品のサブクエリでDISTINCTなCustomerIDを取り出しJOINで絞り込む。
 
 USE SalesOrdersSample;
 
+-- 各商品購入者のサブクエリを順次INNER JOINして全商品購入者を抽出
 SELECT C.CustomerID, C.CustFirstName, C.CustLastName
 FROM Customers AS C INNER JOIN
   (SELECT DISTINCT Orders.CustomerID

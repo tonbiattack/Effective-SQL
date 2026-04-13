@@ -1,8 +1,12 @@
 -- Be sure run Item04StructureAndData.sql in the Sample Databases folder
 -- before attempting to run this listing.
 
+-- 【概要】Item04Example データベースに Authors テーブルを作成し、
+--         著者4名分のデータを INSERT するスクリプト
+
 USE Item04Example;
 
+-- 著者情報を格納するテーブルを作成（AuthorID は AUTO_INCREMENT の主キー）
 CREATE TABLE Authors
   (AuthorID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   AuthFirst varchar (20),
@@ -15,6 +19,7 @@ CREATE TABLE Authors
   AuthPostal  varchar (10),
   AuthCountry  varchar (35));
   
+-- 著者データを4件挿入（AuthMid が NULL の場合あり）
 INSERT INTO Authors ( AuthFirst, AuthMid, AuthLast, AuthStNum, AuthStreet, AuthCity, AuthStProv, AuthPostal, AuthCountry )
 VALUES ('John', 'L.', 'Viescas', '144', 'Boulevard Saint-Germain', 'Paris', ' ', '75006', 'France');
 

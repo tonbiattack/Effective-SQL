@@ -1,11 +1,16 @@
 -- Ensure you've run SalesOrdersStructure.sql
 -- and SalesOrdersData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】EXISTS句を複数使用して、Skateboard/Helmet/Knee Pads/Gloves
+--         全てを購入した顧客を取得する。各商品について相関サブクエリで
+--         購入事実の存在を確認するパターン。
 
 USE SalesOrdersSample;
 
+-- 4つのEXISTSサブクエリで全商品の購入を確認（AND条件で全て購入済み）
 SELECT C.CustomerID, C.CustFirstName, C.CustLastName
-FROM Customers AS C 
+FROM Customers AS C
 WHERE EXISTS
   (SELECT Orders.CustomerID
   FROM Orders INNER JOIN Order_Details

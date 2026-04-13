@@ -1,6 +1,9 @@
 -- Ensure you've run SalesOrdersStructure.sql
 -- and SalesOrdersData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】Customers テーブルの CREATE TABLE 定義（コメントアウト済み）。
+--         既存テーブルのスキーマ確認用の参考例として掲載。
 
 USE SalesOrdersSample;
 

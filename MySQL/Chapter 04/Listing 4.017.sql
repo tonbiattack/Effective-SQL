@@ -1,11 +1,15 @@
 -- Ensure you've run SalesOrdersStructure.sql
 -- and SalesOrdersData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】顧客と購入商品の関連をまとめたCustomerProductsビューを作成し、
+--         後続のクエリで再利用する。CASE式でLIKEを使った商品カテゴリ分類版も示す。
 
 USE SalesOrdersSample;
 
+-- 顧客と購入商品名を結合したDISTINCTビューを作成
 CREATE VIEW CustomerProducts AS
-SELECT DISTINCT Customers.CustomerID, Customers.CustFirstName, 
+SELECT DISTINCT Customers.CustomerID, Customers.CustFirstName,
   Customers.CustLastName, Products.ProductName
 FROM Customers INNER JOIN Orders
   ON Customers.CustomerID = Orders.CustomerID

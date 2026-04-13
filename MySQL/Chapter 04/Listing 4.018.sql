@@ -1,13 +1,17 @@
 -- Ensure you've run SalesOrdersStructure.sql
 -- and SalesOrdersData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】対象商品をProdsOfInterestビューとして定義する。
+--         CASE式＋LIKEを使い商品名を正規化したカテゴリ名に変換するバージョンも示す。
 
 USE SalesOrdersSample;
 
+-- 対象商品リストをビューとして定義（後続クエリで参照）
 CREATE VIEW ProdsOfInterest AS
 SELECT Products.ProductName
 FROM Products
-WHERE ProductName IN 
+WHERE ProductName IN
   ('Skateboard', 'Helmet', 'Knee Pads', 'Gloves');
   
 

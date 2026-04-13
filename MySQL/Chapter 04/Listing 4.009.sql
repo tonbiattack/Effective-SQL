@@ -1,6 +1,10 @@
 -- Ensure you've run SalesOrdersStructure.sql
 -- and SalesOrdersData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】CASE式とCURDATE()を組み合わせて現在の年齢を計算する。
+--         誕生月・日と現在日付を比較し、誕生日が来ていない場合は1を引く方式。
+--         StudentsテーブルはサンプルDBに存在しないため、Employeesテーブルでも同様の例を示す。
 
 -- NOTE: Sample table Students does not exist.
 CREATE DATABASE StudentsTest;
@@ -14,8 +18,9 @@ CREATE TABLE Students (
 	BirthDate date
 );
 
-SELECT Students.StudentID, Students.LastName, Students.FirstName, 
-   YEAR(CURDATE()) - YEAR(Students.BirthDate) - 
+-- CASE式で誕生日の到達有無を判定し、正確な年齢を算出
+SELECT Students.StudentID, Students.LastName, Students.FirstName,
+   YEAR(CURDATE()) - YEAR(Students.BirthDate) -
     CASE WHEN MONTH(Students.BirthDate) < MONTH(CURDATE()) 
     THEN 0 
     WHEN MONTH(Students.BirthDate) > MONTH(CURDATE()) 

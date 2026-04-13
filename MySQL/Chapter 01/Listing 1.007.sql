@@ -1,8 +1,12 @@
 -- Ensure you've run SalesOrdersStructure.sql
 -- and SalesOrdersData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
 
 -- Works only on MySQL 5.7.8 and newer
+
+-- 【概要】Order_Details テーブルに計算列 ExtendedPrice（QuantityOrdered * QuotedPrice）を
+--         GENERATED ALWAYS AS で追加し、インデックスを作成した後、列ごと削除するスクリプト
+
 USE SalesOrdersSample;
 
 -- Create the calculated column using an expression

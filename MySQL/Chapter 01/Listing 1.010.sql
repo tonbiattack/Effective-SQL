@@ -1,6 +1,9 @@
 -- Ensure you've run SalesOrdersStructure.sql
 -- and SalesOrdersData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】Orders テーブルに外部キー制約 Orders_FK99（CustomerID → Customers）を
+--         ALTER TABLE で追加するスクリプト。既存の制約と重複するため注意。
 
 USE SalesOrdersSample;
 
@@ -18,7 +21,8 @@ USE SalesOrdersSample;
 -- A constraint already exists between Customers and
 -- Orders but has a different name. This will create a
 -- duplicate constraint.
-ALTER TABLE Orders 
-  ADD CONSTRAINT Orders_FK99 FOREIGN KEY 
-  ( CustomerID ) REFERENCES 
+-- CustomerID を外部キーとして Customers テーブルを参照する制約を追加
+ALTER TABLE Orders
+  ADD CONSTRAINT Orders_FK99 FOREIGN KEY
+  ( CustomerID ) REFERENCES
   Customers ( CustomerID );

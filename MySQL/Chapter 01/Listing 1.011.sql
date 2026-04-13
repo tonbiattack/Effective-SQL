@@ -1,6 +1,10 @@
 -- Ensure you've run SalesOrdersStructure.sql
 -- and SalesOrdersData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】Orders テーブル定義の参考例。CustomerID カラムにインライン FOREIGN KEY 構文で
+--         Customers テーブルへの参照制約（Orders_FK98）を直接記述している。
+--         既存テーブルと重複するためコメントアウト済み。
 
 USE SalesOrdersSample;
 

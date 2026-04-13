@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: effective-sql-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: effectivesql
+      MYSQL_USER: sqluser
+      MYSQL_PASSWORD: sqlpass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init:/docker-entrypoint-initdb.d:ro
+      - ./Sample Databases:/sql/sample-databases:ro
+      - ./Chapter 01:/sql/chapter01:ro
+      - ./Chapter 02:/sql/chapter02:ro
+      - ./Chapter 03:/sql/chapter03:ro
+      - ./Chapter 04:/sql/chapter04:ro
+      - ./Chapter 05:/sql/chapter05:ro
+      - ./Chapter 06:/sql/chapter06:ro
+      - ./Chapter 07:/sql/chapter07:ro
+      - ./Chapter 08:/sql/chapter08:ro
+      - ./Chapter 09:/sql/chapter09:ro
+      - ./Chapter 10:/sql/chapter10:ro
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-peffectivesql"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  adminer:
+    image: adminer:latest
+    container_name: effective-sql-adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  mysql_data:

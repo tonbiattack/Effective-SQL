@@ -1,9 +1,14 @@
 -- Ensure you've run SalesOrdersStructure.sql
 -- and SalesOrdersData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】CROSS JOINとGROUP BY/HAVINGを使ったリレーショナル除算のパターン。
+--         全対象商品とのCROSS JOINから一致する商品数をカウントし、
+--         ProdsOfInterestの全商品数と一致する顧客を抽出する。
 
 USE SalesOrdersSample;
 
+-- CustomerProductsビュー: 顧客と購入商品の対応
 CREATE VIEW CustomerProducts AS
 SELECT DISTINCT Customers.CustomerID, Customers.CustFirstName, 
   Customers.CustLastName, Products.ProductName
@@ -20,11 +25,12 @@ FROM Products
 WHERE ProductName IN 
   ('Skateboard', 'Helmet', 'Knee Pads', 'Gloves');
 
+-- CROSS JOINで全商品との組み合わせを生成し、一致件数が全商品数と同じ顧客を抽出
 SELECT CP.CustomerID, CP.CustFirstName, CP.CustLastName
 FROM CustomerProducts AS CP CROSS JOIN ProdsOfInterest AS PofI
 WHERE CP.ProductName = PofI.ProductName
 GROUP BY CP.CustomerID, CP.CustFIrstName, CP.CustLastName
-HAVING COUNT(CP.ProductName) = 
+HAVING COUNT(CP.ProductName) =
   (SELECT COUNT(ProductName) FROM ProdsOfInterest);
 
 DROP VIEW CustomerProducts;

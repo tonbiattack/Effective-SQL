@@ -1,9 +1,14 @@
 -- Ensure you've run SalesOrdersStructure.sql
 -- and SalesOrdersData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】二重NOT EXISTSを使ったリレーショナル除算のパターン。
+--         「ProdsOfInterestの全商品を購入している顧客」を
+--         「購入していない商品が存在しない顧客」として表現する。
 
 USE SalesOrdersSample;
 
+-- CustomerProductsビュー: 顧客と購入商品の対応
 CREATE VIEW CustomerProducts AS
 SELECT DISTINCT Customers.CustomerID, Customers.CustFirstName, 
   Customers.CustLastName, Products.ProductName
@@ -20,6 +25,7 @@ FROM Products
 WHERE ProductName IN 
   ('Skateboard', 'Helmet', 'Knee Pads', 'Gloves');
 
+-- 二重NOT EXISTS: 「PofIの全商品を購入していない場合が存在しない」顧客を抽出
 SELECT DISTINCT CustomerID, CustFirstName, CustLastName
 FROM CustomerProducts AS CP1
 WHERE NOT EXISTS

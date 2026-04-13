@@ -1,18 +1,22 @@
 -- Ensure you've run SalesOrdersStructure.sql
 -- and SalesOrdersData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】INを使ったサブクエリで、指定商品のいずれかを購入した顧客を取得する。
+--         複数商品名をIN句でまとめて指定する方法を示す。
 
 USE SalesOrdersSample;
 
+-- Skateboard/Helmet/Knee Pads/Glovesのいずれかを購入した顧客を取得
 SELECT C.CustomerID, C.CustFirstName, C.CustLastName
 FROM Customers AS C
-WHERE C.CustomerID IN 
+WHERE C.CustomerID IN
   (SELECT CustomerID FROM Orders
   INNER JOIN Order_Details
   ON Orders.OrderNumber = Order_Details.OrderNumber
   INNER JOIN Products
   ON Products.ProductNumber = Order_Details.ProductNumber
-  WHERE Products.ProductName 
+  WHERE Products.ProductName
     IN ('Skateboard', 'Helmet', 'Knee Pads', 'Gloves'));
 	
 -- Sample query that returns results:
