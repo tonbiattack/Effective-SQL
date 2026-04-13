@@ -1,5 +1,7 @@
 -- This requires that the tables from Item19Structure.sql be created first.
 
+-- 【概要】Item19ExampleのtblPostSalesテーブルにPostシリアル製品の月次売上サンプルデータを投入する。Alpha-BitsからWaffle Crispまで14製品の年間月次売上データ。
+
 Use Item19Example;
 
 INSERT INTO tblPostSales

@@ -1,12 +1,16 @@
+-- 【概要】SalesOrdersSampleデータベースを作成し、販売注文管理システムの全テーブルを定義する。顧客・従業員・商品・カテゴリ・注文・注文明細・仕入先・仕入発注の各テーブルと、集計用タリーテーブルを含む。
+
 CREATE DATABASE SalesOrdersSample;
 
 USE SalesOrdersSample;
 
+-- 商品カテゴリテーブル（カテゴリID・カテゴリ説明）
 CREATE TABLE Categories (
 	CategoryID int NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 	CategoryDescription varchar (75) NULL 
 	);
 
+-- 顧客テーブル（顧客ID・氏名・住所・電話番号等）
 CREATE TABLE Customers (
 	CustomerID int NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 	CustFirstName varchar (25) NULL ,
@@ -19,6 +23,7 @@ CREATE TABLE Customers (
 	CustPhoneNumber varchar (8) NULL 
 	);
 
+-- 従業員テーブル（従業員ID・氏名・住所・生年月日・マネージャーID等）
 CREATE TABLE Employees (
 	EmployeeID int NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 	EmpFirstName varchar (25) NULL ,
@@ -33,6 +38,7 @@ CREATE TABLE Employees (
 	ManagerID int NULL
 	);
 
+-- 注文明細テーブル（注文番号・商品番号・見積価格・注文数量）
 CREATE TABLE Order_Details (
 	OrderNumber int NOT NULL ,
 	ProductNumber int NOT NULL ,
@@ -40,6 +46,7 @@ CREATE TABLE Order_Details (
 	QuantityOrdered smallint NULL DEFAULT 0  
 	);
 
+-- 注文ヘッダーテーブル（注文番号・注文日・出荷日・顧客ID・担当従業員ID・注文合計）
 CREATE TABLE Orders (
 	OrderNumber int NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 	OrderDate date NULL ,
@@ -49,6 +56,7 @@ CREATE TABLE Orders (
 	OrderTotal decimal (15,2) NULL DEFAULT 0 
 	);
 
+-- 商品仕入先テーブル（商品番号・仕入先ID・卸売価格・納品日数）
 CREATE TABLE Product_Vendors (
 	ProductNumber int NOT NULL ,
 	VendorID int NOT NULL ,
@@ -56,6 +64,7 @@ CREATE TABLE Product_Vendors (
 	DaysToDeliver smallint NULL DEFAULT 0 
 	);
 
+-- 商品テーブル（商品番号・商品名・説明・UPC・小売価格・在庫数・カテゴリID）
 CREATE TABLE Products (
 	ProductNumber int NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 	ProductName varchar (50) NULL ,
@@ -66,6 +75,7 @@ CREATE TABLE Products (
 	CategoryID int NULL 
 	);
 
+-- 仕入先テーブル（仕入先ID・会社名・住所・電話・FAX・WEBサイト・メール）
 CREATE TABLE Vendors (
 	VendorID int NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 	VendName varchar (25) NULL ,
@@ -79,6 +89,7 @@ CREATE TABLE Vendors (
 	VendEMailAddress varchar (50) NULL
 	);
 	
+-- 仕入発注テーブル（発注ID・仕入先ID・発注日・納品日）
 CREATE TABLE PurchaseOrders (
 	PurchaseID int NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 	VendorID int NOT NULL ,
@@ -86,6 +97,7 @@ CREATE TABLE PurchaseOrders (
 	DeliveryDate date NOT NULL
 );
 
+-- タリーテーブル: 月情報（月/年・年月番号・月開始終了日・月フラグ列）
 CREATE TABLE ztblMonths (
 	MonthYear varchar (15) NOT NULL ,
         YearNumber smallint NOT NULL ,
@@ -107,13 +119,15 @@ CREATE TABLE ztblMonths (
 ) ;
 
 
-CREATE TABLE ztblPriceRanges ( 
+-- タリーテーブル: 価格帯（カテゴリ名・最低価格・最高価格）
+CREATE TABLE ztblPriceRanges (
         PriceCategory varchar (20) NOT NULL ,
         LowPrice decimal (15,2) NULL ,
         HighPrice decimal (15,2) NULL
 ) ;
 
 
+-- タリーテーブル: 購入クーポン（購入金額下限・上限・クーポン枚数）
 CREATE TABLE ztblPurchaseCoupons (
         LowSpend decimal (15,2) NOT NULL ,
         HighSpend decimal (15,2) NULL ,
@@ -121,8 +135,9 @@ CREATE TABLE ztblPurchaseCoupons (
 ) ;
 
 
+-- タリーテーブル: 連番（行複製・ループ処理等に使用するシーケンス番号）
 CREATE TABLE ztblSeqNumbers (
-        Sequence int NOT NULL DEFAULT 0 
+        Sequence int NOT NULL DEFAULT 0
 ) ;
 
 

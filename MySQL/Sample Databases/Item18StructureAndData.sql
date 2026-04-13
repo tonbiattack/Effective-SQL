@@ -1,5 +1,7 @@
 -- Create a new database, to make it easier to cleanup afterwards.
 
+-- 【概要】Item02とItem03のサンプルデータを統合したデモ用DB。非正規化された自動車販売データ（CustomerSales）と図面先行管理テーブル（Assignments）を1つのDBに格納する。
+
 CREATE DATABASE Item18Example;
 
 USE Item18Example;

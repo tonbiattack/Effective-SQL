@@ -1,12 +1,16 @@
+-- 【概要】RecipesSampleデータベースを作成し、レシピ管理システムの全テーブルを定義する。レシピ・食材・食材クラス・レシピクラス・計量単位・レシピ食材の各テーブルで構成する。
+
 CREATE DATABASE RecipesSample;
 
 USE RecipesSample;
 
+-- 食材クラステーブル（クラスID・クラス説明）
 CREATE TABLE Ingredient_Classes (
         IngredientClassID smallint NOT NULL ,
         IngredientClassDescription varchar (255) NULL 
 );
 
+-- 食材テーブル（食材ID・食材名・食材クラスID・計量単位ID）
 CREATE TABLE Ingredients (
         IngredientID int NOT NULL ,
         IngredientName varchar (255) NULL ,
@@ -14,16 +18,19 @@ CREATE TABLE Ingredients (
         MeasureAmountID smallint NULL 
 );
 
+-- 計量単位テーブル（計量ID・計量説明）
 CREATE TABLE Measurements (
         MeasureAmountID smallint NOT NULL ,
         MeasurementDescription varchar (255) NULL 
 );
 
+-- レシピクラステーブル（クラスID・クラス説明）
 CREATE TABLE Recipe_Classes (
         RecipeClassID smallint NOT NULL ,
         RecipeClassDescription varchar (255) NULL 
 );
 
+-- レシピ食材テーブル（レシピID・食材順番・食材ID・計量単位ID・分量）
 CREATE TABLE Recipe_Ingredients (
         RecipeID int NOT NULL ,
         RecipeSeqNo smallint NOT NULL DEFAULT 0 ,
@@ -32,6 +39,7 @@ CREATE TABLE Recipe_Ingredients (
         Amount real NULL DEFAULT 0
 );
 
+-- レシピテーブル（レシピID・タイトル・レシピクラスID・調理手順・備考）
 CREATE TABLE Recipes (
         RecipeID int NOT NULL ,
         RecipeTitle varchar (255) NULL ,

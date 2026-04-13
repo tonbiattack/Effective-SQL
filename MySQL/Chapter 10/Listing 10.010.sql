@@ -1,9 +1,12 @@
+-- 【概要】閉包テーブルモデル（Closure Table Model）で階層構造を表現する。EmployeesAncestryテーブルに全ての祖先→子孫ペアとその距離を格納し、任意の階層クエリを効率化する。
+
 CREATE DATABASE Item61Example
 	DEFAULT CHARACTER SET utf8
     DEFAULT COLLATE utf8_unicode_ci;
 
 USE Item61Example;
 
+-- 基本的な従業員テーブル（隣接リスト形式で親子関係も保持）
 CREATE TABLE Employees (
   EmployeeID int NOT NULL PRIMARY KEY,
   EmpName varchar(255) NOT NULL,
@@ -11,10 +14,11 @@ CREATE TABLE Employees (
   SupervisorID int NULL
 );
 
+-- 閉包テーブル: 全ての祖先-子孫ペアとその階層距離を格納（Distance=0は自己参照）
 CREATE TABLE EmployeesAncestry (
-  SupervisedEmployeeID int NOT NULL,
-  SupervisingEmployeeID int NOT NULL,
-  Distance int NOT NULL,
+  SupervisedEmployeeID int NOT NULL,    -- 子孫（部下）の従業員ID
+  SupervisingEmployeeID int NOT NULL,   -- 祖先（上司）の従業員ID
+  Distance int NOT NULL,                -- 階層距離（0=自己参照、1=直属上司等）
   PRIMARY KEY (SupervisedEmployeeID, SupervisingEmployeeID)
 );
 
@@ -32,6 +36,7 @@ ADD CONSTRAINT FK_EmployeesAncestry_SupervisedEmployeeID
 FOREIGN KEY (SupervisedEmployeeID)
 REFERENCES Employees (EmployeeID);
 
+-- 従業員データを投入
 INSERT INTO Employees (EmployeeID, EmpName, EmpPosition, SupervisorID)
 VALUES
 	(1,	'Amy Kok', 'President', NULL),
@@ -48,6 +53,7 @@ VALUES
 	(12, 'Jessica Yosef', 'Developer', 8)
 ;
 
+-- 全祖先-子孫ペアをDistance付きで投入（自己参照Distance=0を含む）
 INSERT INTO EmployeesAncestry (SupervisedEmployeeID, SupervisingEmployeeID, Distance)
 VALUES
 	(1, 1, 0),

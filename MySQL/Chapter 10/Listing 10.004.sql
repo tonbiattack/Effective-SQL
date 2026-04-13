@@ -1,22 +1,27 @@
+-- 【概要】入れ子集合モデル（Nested Sets Model）で階層構造を表現するEmployeesテーブルを作成する。lft/rgt（左辺値・右辺値）で木構造のトラバーサルを効率化する代替アプローチ。
+
 CREATE DATABASE Item59Example
 	DEFAULT CHARACTER SET utf8
     DEFAULT COLLATE utf8_unicode_ci;
 
 USE Item59Example;
 
+-- lft（左辺値）とrgt（右辺値）を追加した入れ子集合モデル用のEmployeesテーブル
 CREATE TABLE Employees (
   EmployeeID int PRIMARY KEY,
   EmpName varchar(255) NOT NULL,
   EmpPosition varchar(255) NOT NULL,
   SupervisorID int NULL,
-  lft int NULL,
-  rgt int NULL
+  lft int NULL,  -- 入れ子集合の左辺値（サブツリーの範囲左境界）
+  rgt int NULL   -- 入れ子集合の右辺値（サブツリーの範囲右境界）
 );
 
-ALTER TABLE Employees 
-ADD FOREIGN KEY (SupervisorID) 
+-- SupervisorIDを自己参照外部キーとして設定
+ALTER TABLE Employees
+ADD FOREIGN KEY (SupervisorID)
 REFERENCES Employees (EmployeeID);
 
+-- lft/rgt値付きで組織階層データを投入（ルートノードlft=1, rgt=24）
 INSERT INTO Employees (EmployeeID, EmpName, EmpPosition, SupervisorID, lft, rgt)
 VALUES
 	(1,	'Amy Kok', 'President', NULL, 1, 24),

@@ -1,9 +1,12 @@
 -- Create a new database, to make it easier to cleanup afterwards.
 
+-- 【概要】カテゴリ別月次販売数量・売上をピボット形式で格納するデモ用DB。OctoberからFebruaryまでの5ヶ月分の数量と売上を1行に展開したSalesSummaryテーブルのサンプル。
+
 CREATE DATABASE Item21Example;
 
 USE Item21Example;
 
+-- カテゴリ別月次数量・売上テーブル（10〜2月の5ヶ月分を列展開したピボット形式）
 CREATE TABLE SalesSummary (
   Category varchar(25) NULL,
   OctQuantity int NULL,

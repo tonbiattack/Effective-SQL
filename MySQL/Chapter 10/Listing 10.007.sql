@@ -1,21 +1,26 @@
+-- 【概要】パス列挙モデル（Path Enumeration Model）で階層構造を表現するEmployeesテーブルを作成する。HierarchyPathに「1/2/4」のようなルートからのIDパスを格納して階層を表現する。
+
 CREATE DATABASE Item60Example
 	DEFAULT CHARACTER SET utf8
     DEFAULT COLLATE utf8_unicode_ci;
 
 USE Item60Example;
 
+-- HierarchyPath列（例: '1/3/8/10'）でルートからの経路を文字列として格納するパス列挙モデル
 CREATE TABLE Employees (
   EmployeeID int PRIMARY KEY,
   EmpName varchar(255) NOT NULL,
   EmpPosition varchar(255) NOT NULL,
   SupervisorID int NULL,
-  HierarchyPath varchar(255)
+  HierarchyPath varchar(255)  -- ルートからのパス（例: '1/2/4'）
 );
 
-ALTER TABLE Employees 
-ADD FOREIGN KEY (SupervisorID) 
+-- SupervisorIDを自己参照外部キーとして設定
+ALTER TABLE Employees
+ADD FOREIGN KEY (SupervisorID)
 REFERENCES Employees (EmployeeID);
 
+-- パス付きで組織階層データを投入（各従業員のルートからのパスを文字列で記録）
 INSERT INTO Employees (EmployeeID, EmpName, EmpPosition, SupervisorID, HierarchyPath)
 VALUES
 	(1,	'Amy Kok', 'President', NULL, '1'),

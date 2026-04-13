@@ -1,7 +1,10 @@
+-- 【概要】EntertainmentAgencySampleデータベースを作成し、エンターテインメントエージェンシー管理システムの全テーブルを定義する。エージェント・顧客・エンターテイナー・メンバー・音楽スタイル・契約・嗜好の各テーブルと集計用タリーテーブルを含む。
+
 CREATE DATABASE EntertainmentAgencySample;
 
 USE EntertainmentAgencySample;
 
+-- エージェントテーブル（エージェントID・氏名・住所・電話番号・採用日・給与・歩合率）
 CREATE TABLE Agents (
         AgentID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
         AgtFirstName varchar (25) NULL ,
@@ -16,6 +19,7 @@ CREATE TABLE Agents (
         CommissionRate float(24) NULL 
 );
 
+-- 顧客テーブル（顧客ID・氏名・住所・電話番号）
 CREATE TABLE Customers (
 	CustomerID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	CustFirstName varchar (25) NULL ,
@@ -27,6 +31,7 @@ CREATE TABLE Customers (
 	CustPhoneNumber varchar (15) NULL
 );
 
+-- 契約テーブル（契約番号・開始/終了日時・契約金額・顧客ID・エージェントID・エンターテイナーID）
 CREATE TABLE Engagements (
 	EngagementNumber int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	StartDate date NULL ,
@@ -39,18 +44,21 @@ CREATE TABLE Engagements (
 	EntertainerID int NULL 
 );
 
+-- エンターテイナーメンバーテーブル（エンターテイナーID・メンバーID・ステータス）
 CREATE TABLE Entertainer_Members (
 	EntertainerID int NOT NULL ,
 	MemberID int NOT NULL ,
 	Status smallint NULL DEFAULT 0 
 );
 
+-- エンターテイナースタイルテーブル（エンターテイナーID・スタイルID・スタイル強度）
 CREATE TABLE Entertainer_Styles (
 	EntertainerID int NOT NULL ,
 	StyleID int NOT NULL ,
 	StyleStrength smallint NOT NULL DEFAULT 0
 );
 
+-- エンターテイナーテーブル（ID・ステージ名・SSN・住所・電話・WEB・メール・登録日・日額）
 CREATE TABLE Entertainers (
 	EntertainerID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	EntStageName varchar (50) NULL ,
@@ -66,6 +74,7 @@ CREATE TABLE Entertainers (
 	EntPricePerDay decimal(15,2) NULL 
 );
 
+-- メンバーテーブル（メンバーID・氏名・電話番号・性別）
 CREATE TABLE Members (
 	MemberID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	MbrFirstName varchar (25) NULL ,
@@ -74,12 +83,14 @@ CREATE TABLE Members (
 	Gender varchar (2) NULL 
 );
 
+-- 音楽嗜好テーブル（顧客ID・スタイルID・嗜好順位）
 CREATE TABLE Musical_Preferences (
 	CustomerID int NOT NULL ,
 	StyleID int NOT NULL ,
 	PreferenceSeq smallint NOT NULL DEFAULT 0
 );
 
+-- 音楽スタイルテーブル（スタイルID・スタイル名）
 CREATE TABLE Musical_Styles (
 	StyleID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	StyleName varchar (75) NULL 

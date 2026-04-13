@@ -1,7 +1,10 @@
+-- 【概要】BowlingLeagueSampleデータベースを作成し、ボウリングリーグ管理システムの全テーブルを定義する。チーム・ボウラー・トーナメント・試合・スコアの各テーブルと集計用タリーテーブルを含む。
+
 CREATE DATABASE BowlingLeagueSample;
 
 USE BowlingLeagueSample;
 
+-- ボウラースコアテーブル（試合ID・ゲーム番号・ボウラーID・生スコア・ハンディキャップスコア・勝敗）
 CREATE TABLE Bowler_Scores (
 	MatchID int NOT NULL ,
 	GameNumber smallint NOT NULL DEFAULT 0 ,
@@ -11,6 +14,7 @@ CREATE TABLE Bowler_Scores (
 	WonGame bit NOT NULL DEFAULT 0 
 ) ;
 
+-- ボウラーテーブル（ボウラーID・氏名・住所・電話番号・所属チームID）
 CREATE TABLE Bowlers (
 	BowlerID int NOT NULL ,
 	BowlerLastName varchar (50) NULL ,
@@ -24,24 +28,28 @@ CREATE TABLE Bowlers (
 	TeamID int NULL 
 ) ;
 
+-- 試合ゲームテーブル（試合ID・ゲーム番号・勝利チームID）
 CREATE TABLE Match_Games (
 	MatchID int NOT NULL ,
 	GameNumber smallint NOT NULL DEFAULT 0 ,
 	WinningTeamID int NULL 
 ) ;
 
+-- チームテーブル（チームID・チーム名・キャプテンID）
 CREATE TABLE Teams (
 	TeamID int NOT NULL ,
 	TeamName varchar (50) NOT NULL ,
-	CaptainID int NULL 
+	CaptainID int NULL
 ) ;
 
+-- トーナメントテーブル（トーナメントID・開催日・開催場所）
 CREATE TABLE Tournaments (
 	TourneyID int NOT NULL ,
 	TourneyDate date NULL ,
 	TourneyLocation varchar (50) NULL 
 ) ;
 
+-- トーナメント試合テーブル（試合ID・トーナメントID・レーン・奇数偶数レーンチームID）
 CREATE TABLE Tourney_Matches (
 	MatchID int NOT NULL ,
 	TourneyID int NULL ,

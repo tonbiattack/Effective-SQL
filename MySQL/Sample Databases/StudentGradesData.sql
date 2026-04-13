@@ -1,5 +1,7 @@
 -- This requires that the tables from StudentsGradesStructure.sql be created first.
 
+-- 【概要】StudentGradesExampleデータベースのStudents・Subjects・StudentSubjects・GradeRanges・GradeRangesContinuousテーブルにサンプルデータを投入する。Chapter 09の成績集計クエリで使用する学生・科目・成績データ。
+
 USE StudentGradesExample;
 
 INSERT INTO Students (StudentID, StudentFirstNM, StudentLastNM) VALUES (1, 'Ben', 'Clothier');

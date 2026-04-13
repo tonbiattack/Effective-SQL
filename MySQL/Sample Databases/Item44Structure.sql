@@ -1,7 +1,9 @@
 -- This is essentially the same as the BeerStylesStructure example, except
 --   1) No primary key has been created on table Countries
 --   2) No foreign key pointing to CountryID in Countries has been created
---      in table Styles (since there's no PK in Countries!) 
+--      in table Styles (since there's no PK in Countries!)
+
+-- 【概要】主キー・外部キーが意図的に欠如したBeerStylesの変形データベース。Chapter 07でINFORMATION_SCHEMAを使った制約検出クエリのデモ用に、Countries主キーとStylesのFK制約をコメントアウトしている。
 
 CREATE DATABASE Item44Example;
 
@@ -40,6 +42,7 @@ ALTER TABLE Styles
   ADD CONSTRAINT Styles_PK PRIMARY KEY ( StyleID );
 
 
+-- カテゴリ・国・スタイル・最大ABVを結合して返すBeerStylesビュー（Chapter 07 Listing 7.18の参照用）
 CREATE VIEW BeerStyles AS
 SELECT Cat.CategoryDS AS Category, Cou.CountryNM AS Country, Sty.StyleNM AS Style, Sty.ABVHighNb AS MaxABV
 FROM Styles AS Sty INNER JOIN Categories AS Cat

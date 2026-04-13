@@ -1,9 +1,12 @@
 -- Create a new database, to make it easier to cleanup afterwards.
 
+-- 【概要】非正規化された自動車販売データ（CustomerSales）と正規化された分割テーブル群を比較するデモ用DB。第1正規形と正規化の必要性を示すサンプルデータを含む。
+
 CREATE DATABASE Item02Example;
 
 USE Item02Example;
 
+-- 非正規化テーブル: 顧客・車両・担当者の情報をすべて1テーブルに格納した反面教師例
 CREATE TABLE CustomerSales (
   SalesID int PRIMARY KEY,
   CustFirstName varchar(25) NULL,
@@ -17,6 +20,7 @@ CREATE TABLE CustomerSales (
   SalesPerson varchar(30) NULL
 );
 
+-- 正規化後: 顧客テーブル（顧客ID・氏名・住所・電話番号）
 CREATE TABLE Customers (
   CustomerID int PRIMARY KEY,
   CustFirstName varchar(25) NULL,
@@ -26,17 +30,20 @@ CREATE TABLE Customers (
   Phone varchar(25) NULL
 );
 
+-- 正規化後: 自動車モデルテーブル（モデルID・年式・モデル名）
 CREATE TABLE AutomobileModels (
   ModelID int PRIMARY KEY,
   ModelYear smallint NULL,
   Model varchar(50) NULL
 );
 
+-- 正規化後: 従業員テーブル（従業員ID・担当者名）
 CREATE TABLE Employees (
   EmployeeID int PRIMARY KEY,
   SalesPerson varchar(30) NULL
 );
 
+-- 正規化後: 販売取引テーブル（販売ID・顧客ID・モデルID・担当者ID・購入日）
 CREATE TABLE SalesTransactions (
   SalesID int PRIMARY KEY,
   CustomerID int,

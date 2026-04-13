@@ -1,15 +1,20 @@
 -- Ensure you've run SalesOrdersStructure.sql
 -- and SalesOrdersData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】EXISTSサブクエリを複数使い、SkateboardとHelmetを両方含む注文と
+--         その顧客情報を取得する。EXISTS内でSELECT NULLを使う推奨パターン。
 
 USE SalesOrdersSample;
 
-SELECT Customers.CustomerID, Customers.CustFirstName, 
+-- SkateboardとHelmetを両方含む注文を持つ顧客を取得
+SELECT Customers.CustomerID, Customers.CustFirstName,
   Customers.CustLastName, Orders.OrderNumber, Orders.OrderDate
 FROM Customers
   INNER JOIN Orders
     ON Customers.CustomerID = Orders.CustomerID
-WHERE EXISTS 
+-- 同じ注文番号でSkateboardが存在するか確認
+WHERE EXISTS
   (SELECT NULL
    FROM (Orders AS O2
       INNER JOIN Order_Details

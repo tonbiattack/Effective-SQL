@@ -1,9 +1,12 @@
 -- Create a new database, to make it easier to cleanup afterwards.
 
+-- 【概要】ビールスタイルデータを非正規化フラット形式で格納するデモ用DB。カテゴリ・国・スタイル・最大アルコール度数を1テーブルに格納し、正規化されたBeerStylesExampleと対比して使用する。
+
 CREATE DATABASE Item33Example;
 
 USE Item33Example;
 
+-- ビールスタイルテーブル（カテゴリ・国・スタイル・最大ABV）をフラット形式で格納
 CREATE TABLE BeerStyles (
   Category varchar(25) NULL,
   Country varchar(20) NULL,

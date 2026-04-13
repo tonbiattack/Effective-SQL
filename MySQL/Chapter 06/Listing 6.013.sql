@@ -1,12 +1,17 @@
 -- Ensure you've run SalesOrdersStructure.sql
 -- and SalesOrdersData.sql in the Sample Databases folder
--- in order to run this example. 
+-- in order to run this example.
+
+-- 【概要】MySQLのCTE非対応を複数ビューで回避した実装。
+--         顧客-商品対応ビューと商品別購入者ビューを作成し、
+--         全商品購入者を4つのビューINNER JOINで抽出する。
 
 USE SalesOrdersSample;
 
 -- MySQL does not support CTEs so using views instead
 
-CREATE VIEW CustProd AS 
+-- 顧客IDと購入商品名の対応ビュー
+CREATE VIEW CustProd AS
 SELECT Orders.CustomerID, Products.ProductName
 FROM Orders INNER JOIN Order_Details
   ON Orders.OrderNumber = Order_Details.OrderNumber

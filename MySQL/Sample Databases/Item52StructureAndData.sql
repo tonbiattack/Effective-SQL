@@ -1,16 +1,21 @@
+-- 【概要】株式取引（買い・売り）の在庫計算（FIFO/LIFO等）デモ用DB。Stocks・Transactions・TransactionTypes・Tallyテーブルで構成し、タリーテーブルを使用した在庫計算クエリのサンプル。
+
 CREATE DATABASE Item52Example;
 
 USE Item52Example;
 
+-- 株式テーブル（株式ID・株式名）
 CREATE TABLE Stocks (
 	StockID int NOT NULL PRIMARY KEY,
 	StockName varchar(255)
 );
 
+-- タリーテーブル（連番1〜N: 行複製や集計に使用）
 CREATE TABLE Tally (
 	Num int NOT NULL PRIMARY KEY
 );
 
+-- 取引テーブル（取引ID・株式ID・取引種別ID・取引日・数量・価格）
 CREATE TABLE Transactions (
 	TransactionID int NOT NULL PRIMARY KEY,
 	StockID int NOT NULL,
@@ -20,6 +25,7 @@ CREATE TABLE Transactions (
 	Price decimal(19,4) NOT NULL
 );
 
+-- 取引種別テーブル（取引種別ID・種別名: Buy/Sell）
 CREATE TABLE TransactionTypes (
 	TransactionTypeID int NOT NULL PRIMARY KEY,
 	TransactionType varchar(255) NOT NULL

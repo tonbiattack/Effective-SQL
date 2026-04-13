@@ -1,5 +1,7 @@
 -- This requires that the tables from BeerStylesStructure.sql be created first.
 
+-- 【概要】BeerStylesExampleデータベースのCategories・Countries・Stylesテーブルにサンプルデータを投入する。英国・欧州・アメリカの代表的なビールスタイルデータを含む。
+
 USE BeerStylesExample;
 
 INSERT INTO Categories (CategoryID, CategoryDS) VALUES (1, 'British or Irish Ales');

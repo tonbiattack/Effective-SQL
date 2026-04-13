@@ -1,9 +1,12 @@
 -- Create a new database, to make it easier to cleanup afterwards.
 
+-- 【概要】注文データのサンプルDB。NULL値を含むEmployeeIDを持つOrdersTableを使用して、NULLの扱いやソート・集計の動作を検証するデモ用データを含む。
+
 CREATE DATABASE Item36Example;
 
 USE Item36Example;
 
+-- 注文テーブル（注文番号・注文日・出荷日・顧客ID・従業員ID（NULL許容）・注文合計）
 CREATE TABLE OrdersTable (
   OrderNumber int PRIMARY KEY,
   OrderDate date NULL,

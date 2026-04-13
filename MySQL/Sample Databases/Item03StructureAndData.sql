@@ -1,10 +1,13 @@
 -- Create a new database, to make it easier to cleanup afterwards.
 
+-- 【概要】図面と先行図面の関係を管理するデモ用DB。複数列で先行図面を格納する非正規化テーブル（Assignments）と正規化されたDrawings/Predecessorsテーブルを比較する。
+
 CREATE DATABASE Item03Example;
 
 USE Item03Example;
 
 
+-- 非正規化テーブル: 先行図面番号を複数列（Predecessor_1〜5）に格納した反面教師例
 CREATE TABLE Assignments (
   ID int PRIMARY KEY NOT NULL,
   DrawingNumber varchar(25) NULL,
@@ -15,11 +18,13 @@ CREATE TABLE Assignments (
   Predecessor_5 varchar(25) NULL
 );
 
+-- 正規化後: 図面テーブル（図面ID・図面番号）
 CREATE TABLE Drawings (
   DrawingID int PRIMARY KEY NOT NULL,
   DrawingNumber varchar(25) NULL
 );
 
+-- 正規化後: 先行図面テーブル（先行ID・図面ID・先行番号・先行図面番号文字列）
 CREATE TABLE Predecessors(
   PredecessorID int PRIMARY KEY NOT NULL,
   DrawingID int NULL,
